@@ -1,0 +1,5 @@
+jupyter
+git+https://github.com/ElouanARGOUARCH/Discretely-Indexed-Flows.git
+git+https://github.com/ElouanARGOUARCH/ExpectationMaximisation.git
+git+https://github.com/ElouanARGOUARCH/TargetExamples.git
+git+https://github.com/ElouanARGOUARCH/Normalizing_Flows.git
