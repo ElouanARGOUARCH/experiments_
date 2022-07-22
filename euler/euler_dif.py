@@ -50,5 +50,5 @@ for i in range(number_runs):
     batch_size = 30000
     dif.train(epochs, batch_size)
 
-    filename = 'euler_dif' + str(i) + '.sav'
+    filename = 'runs_dif/euler_dif' + str(i) + '.sav'
     torch.save(dif,filename)
