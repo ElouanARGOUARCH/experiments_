@@ -3,7 +3,7 @@ import torch
 from matplotlib import image
 import matplotlib.pyplot as plt
 torch.manual_seed(0)
-number_runs = 20
+number_runs = 1
 
 from models_nf import NeuralSplineFlow
 rgb = image.imread("euler.jpg")
@@ -32,12 +32,11 @@ for i in range(number_runs):
     with torch.no_grad():
         grid = torch.cartesian_prod(torch.linspace(0, 1, lines), torch.linspace(0, 1, columns))
         density = torch.exp(nsf.model.log_prob(grid)).reshape(lines, columns).T
-        figure = plt.figure(figsize=(12, 8))
-        ax = figure.add_subplot(111)
-        ax.tick_params(left=False, bottom=False, labelleft=False, labelbottom=False)
-        ax.imshow(torch.flip(torch.flip(density.T, [0, 1]), [0, 1]), extent=[0, columns, 0, lines])
+        figure = plt.figure()
+        plt.tick_params(left=False, bottom=False, labelleft=False, labelbottom=False)
+        plt.imshow(torch.flip(torch.flip(density.T, [0, 1]), [0, 1]), extent=[0, columns, 0, lines])
         filename_png = 'runs_nsf/euler_nsf' + str(i) + '.png'
-        figure.savefig(filename_png)
+        figure.savefig(filename_png, bbox_inches = 'tight', pad_inches = 0 )
 
     filename = 'runs_nsf/euler_nsf' + str(i) + '.sav'
     torch.save(nsf.state_dict(), filename)
