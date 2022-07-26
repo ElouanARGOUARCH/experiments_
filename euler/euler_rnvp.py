@@ -10,7 +10,7 @@ def rgb2gray(rgb):
 grey = torch.tensor(rgb2gray(rgb))
 loss_values = []
 
-for i in range(number_runs):
+for i in range(11,11+number_runs):
     #Sample data according to image
     vector_density = grey.flatten()
     vector_density = vector_density/torch.sum(vector_density)
