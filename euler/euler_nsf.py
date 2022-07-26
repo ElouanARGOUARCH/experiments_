@@ -3,7 +3,7 @@ import torch
 from matplotlib import image
 import matplotlib.pyplot as plt
 torch.manual_seed(0)
-number_runs = 1
+number_runs = 20
 
 from models_nf import NeuralSplineFlow
 rgb = image.imread("euler.jpg")
