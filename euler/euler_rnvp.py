@@ -1,7 +1,6 @@
 import numpy as np
 import torch
 from matplotlib import image
-torch.manual_seed(0)
 number_runs = 20
 from models_nf import RealNVP
 rgb = image.imread("euler.jpg")
@@ -24,7 +23,7 @@ for i in range(11,11+number_runs):
     real_nvp = RealNVP(target_samples, 10, 64)
     print(real_nvp.compute_number_params())
 
-    epochs = 1000
+    epochs = 200
     batch_size = 30000
     real_nvp.train(epochs, batch_size)
 
