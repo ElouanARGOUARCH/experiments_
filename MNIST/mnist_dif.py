@@ -23,11 +23,11 @@ p = target_samples.shape[-1]
 plt.imshow(target_samples[torch.randint(low = 0, high = num_samples, size = [1])].reshape(28,28))
 
 train_set, test_set = target_samples[:4000], target_samples[4000:]
-
-K = 50
+print(torch.mean((target_samples+torch.rand_like(target_samples))/255))
+K = 30
 dif = DIFDensityEstimator(target_samples, K)
-dif.w = SoftmaxWeight(K,p, [512,256,128])
-dif.train(1000, 5000)
+dif.w = SoftmaxWeight(K,p, [256,256,256,256])
+dif.train(1000, 6000)
 
 filename = 'dif_mnist.sav'
 torch.save(dif, filename)
