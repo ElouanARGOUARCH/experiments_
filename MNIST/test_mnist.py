@@ -4,11 +4,11 @@ filename = 'dif_mnist.sav'
 model = torch.load(filename)
 print(model.loss_values[-1])
 with torch.no_grad():
-    sample = model.sample_model(50)
-n_row = 5
+    sample = model.sample_model(70)
+n_row =7 
 n_col = 10
-_, axs = plt.subplots(n_row, n_col, figsize=(12, 12))
+_, axs = plt.subplots(n_row, n_col, figsize=(24,24))
 axs = axs.flatten()
 for i, ax in enumerate(axs):
-    ax.imshow(sample[i].reshape(28,28).numpy())
+    ax.imshow(sample[i].reshape(28,28).numpy(), vmin=0., vmax =1.)
 plt.savefig('test.png')
