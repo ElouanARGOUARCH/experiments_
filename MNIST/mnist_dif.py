@@ -26,8 +26,8 @@ train_set, test_set = target_samples[:4000], target_samples[4000:]
 
 K = 100
 dif = DIFDensityEstimator(target_samples, K)
-dif.w = SoftmaxWeight(K,p, [256,256,256])
-dif.train(1000, 6000)
+dif.w = SoftmaxWeight(K,p, [256,512])
+dif.train(1000, 5000)
 
 filename = 'dif_mnist.sav'
 torch.save(dif, filename)
