@@ -1,7 +1,7 @@
 import torch
 list_score_nll = []
 list_score_dkl = []
-number_runs = 20
+number_runs = 11
 lines = 256
 columns = 197
 import numpy
