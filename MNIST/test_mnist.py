@@ -10,5 +10,5 @@ n_col = 10
 _, axs = plt.subplots(n_row, n_col, figsize=(24,24))
 axs = axs.flatten()
 for i, ax in enumerate(axs):
-    ax.imshow(sample[i].reshape(28,28).numpy(), vmin=0., vmax =1.)
+    ax.imshow(sample[i].reshape(28,28).numpy())
 plt.savefig('test.png')
