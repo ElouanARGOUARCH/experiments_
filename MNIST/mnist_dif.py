@@ -4,7 +4,6 @@ from models_dif import SoftmaxWeight, DIFDensityEstimator
 ###MNIST###
 
 import torchvision.datasets as datasets
-import matplotlib.pyplot as plt
 mnist_trainset = datasets.MNIST(root='./data', train=True, download=True, transform=None)
 mnist_testset = datasets.MNIST(root='./data', train=False, download=True, transform=None)
 images = mnist_trainset.data.flatten(start_dim=1)
@@ -21,11 +20,11 @@ num_samples = target_samples.shape[0]
 print('number of samples = ' + str(num_samples))
 p = target_samples.shape[-1]
 
-train_set, test_set = target_samples[:4000], target_samples[4000:]
-K = 65
-dif = DIFDensityEstimator(target_samples, K)
-dif.w = SoftmaxWeight(K,p, [1024,1024,512,512,256,256,128,128])
-dif.train(1000, 6000)
+for i in range(10):
+    K = 65
+    dif = DIFDensityEstimator(target_samples, K)
+    dif.w = SoftmaxWeight(K,p, [1024,512,256,128])
+    dif.train(1000, 6000)
 
-filename = 'dif_mnist2.sav'
-torch.save(dif, filename)
+    filename = 'dif_mnist2' + str(i)+ '.sav'
+    torch.save(dif, filename)
