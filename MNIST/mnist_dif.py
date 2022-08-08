@@ -23,7 +23,7 @@ p = target_samples.shape[-1]
 for i in range(10):
     K = 65
     dif = DIFDensityEstimator(target_samples, K)
-    dif.w = SoftmaxWeight(K,p, [1024,512,256,128])
+    dif.w = SoftmaxWeight(K,p, [512,512,256,256,128,128])
     dif.train(1000, 6000)
 
     filename = 'dif_mnist2' + str(i)+ '.sav'
