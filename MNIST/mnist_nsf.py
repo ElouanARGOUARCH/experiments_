@@ -20,13 +20,13 @@ num_samples = target_samples.shape[0]
 print('number of samples = ' + str(num_samples))
 p = target_samples.shape[-1]
 
-nsf = NeuralSplineFlow(target_samples, 20,256,3)
+nsf = NeuralSplineFlow(target_samples, 20,128,3)
 
 epochs = 1000
 batch_size = 6000
 nsf.train(epochs, batch_size)
 
-filename = 'nsf_mnist2.sav'
+filename = 'nsf_mnist.sav'
 torch.save(nsf, filename)
 
 

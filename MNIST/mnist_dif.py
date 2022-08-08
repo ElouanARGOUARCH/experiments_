@@ -26,5 +26,5 @@ for i in range(10):
     dif.w = SoftmaxWeight(K,p, [512,512,256,256,128,128])
     dif.train(1000, 6000)
 
-    filename = 'dif_mnist2' + str(i)+ '.sav'
+    filename = 'dif_mnist' + str(i)+ '.sav'
     torch.save(dif, filename)
