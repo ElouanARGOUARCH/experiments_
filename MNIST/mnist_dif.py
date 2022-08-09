@@ -14,7 +14,7 @@ if digit != 'all':
     extracted = images[targets == digit].float()
 else:
     extracted = images.float()
-target_samples = extracted + torch.rand_like(extracted)/256
+target_samples = (extracted + torch.rand_like(extracted))/256
 
 num_samples = target_samples.shape[0]
 print('number of samples = ' + str(num_samples))
