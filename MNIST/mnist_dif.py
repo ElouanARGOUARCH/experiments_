@@ -19,12 +19,10 @@ target_samples = (extracted + torch.rand_like(extracted))/256
 num_samples = target_samples.shape[0]
 print('number of samples = ' + str(num_samples))
 p = target_samples.shape[-1]
+K = 60
+dif = DIFDensityEstimator(target_samples, K)
+dif.w = SoftmaxWeight(K,p, [512,512,256,256,128,128])
+dif.train(10000, 6000)
 
-for i in range(10):
-    K = 70
-    dif = DIFDensityEstimator(target_samples, K)
-    dif.w = SoftmaxWeight(K,p, [512,512,256,256,128,128])
-    dif.train(10000, 6000)
-
-    filename = 'dif_mnist_best_2.sav'
-    torch.save(dif, filename)
+filename = 'dif_mnist_best.sav'
+torch.save(dif, filename)

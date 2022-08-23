@@ -1,5 +1,5 @@
 import torch
-from models_nf import RealNVPDensityEstimatorLayer, MixedModelDensityEstimator
+from models_nf import MixedModelDensityEstimator, MAFLayer
 
 
 import torchvision.datasets as datasets
@@ -18,15 +18,15 @@ num_samples = target_samples.shape[0]
 print('number of samples = ' + str(num_samples))
 p = target_samples.shape[-1]
 
-structure = [[RealNVPDensityEstimatorLayer,[256,256,256]] for i in range(10)]
+structure = [[MAFLayer,[256,256,256]] for i in range(10)]
 rnvp = MixedModelDensityEstimator(target_samples, structure)
 print(rnvp.compute_number_params())
 
-epochs = 1000
+epochs = 10000
 batch_size = 6000
 rnvp.train(epochs, batch_size)
 
-filename = 'nsf_mnist.sav'
+filename = 'maf_mnist_best.sav'
 torch.save(rnvp, filename)
 
 
