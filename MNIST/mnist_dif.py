@@ -5,24 +5,23 @@ from models_dif import SoftmaxWeight, DIFDensityEstimator
 
 import torchvision.datasets as datasets
 mnist_trainset = datasets.MNIST(root='./data', train=True, download=True, transform=None)
-mnist_testset = datasets.MNIST(root='./data', train=False, download=True, transform=None)
-images = mnist_trainset.data.flatten(start_dim=1)
-targets = mnist_trainset.targets
+images = mnist_trainset.data.flatten(start_dim=1).float()
+temp = (images + torch.rand_like(images))/256
 
-digit = 'all'
-if digit != 'all':
-    extracted = images[targets == digit].float()
-else:
-    extracted = images.float()
-target_samples = (extracted + torch.rand_like(extracted))/256
+def pre_process(x, lbda):
+    return torch.logit(lbda*torch.ones_like(x) + x*(1-2*lbda))
 
-num_samples = target_samples.shape[0]
-print('number of samples = ' + str(num_samples))
-p = target_samples.shape[-1]
-K = 60
-dif = DIFDensityEstimator(target_samples, K)
-dif.w = SoftmaxWeight(K,p, [512,512,256,256,128,128])
-dif.train(10000, 6000)
+def inverse_pre_process(x, lbda):
+    return torch.sigmoid((x- lbda*torch.ones_like(x))/(1-2*lbda))
 
-filename = 'dif_mnist_best.sav'
-torch.save(dif, filename)
+lbda = 1e-6
+target_samples = pre_process(temp, lbda)
+
+for i in range(10):
+    p = target_samples.shape[-1]
+    K = 60
+    dif = DIFDensityEstimator(target_samples, K)
+    dif.w = SoftmaxWeight(K,p, [512,512,256,256,128,128])
+    dif.train(2000, 6000)
+    filename = 'dif_mnist_best'+str(i)+'.sav'
+    torch.save(dif, filename)
