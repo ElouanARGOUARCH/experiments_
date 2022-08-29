@@ -30,4 +30,4 @@ model.w = initial_w
 model.T = initial_T
 model.train(1000,6000)
 filename = 'dif_mnist_model.sav'
-torch.save(dif, filename)
+torch.save(model, filename)
