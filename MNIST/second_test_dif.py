@@ -29,5 +29,5 @@ initial_T.log_s = torch.nn.Parameter(torch.zeros(K,p))
 model.w = initial_w
 model.T = initial_T
 model.train(1000,6000)
-filename = 'dif_mnist_model.sav'
+filename = 'dif_mnist_second_model.sav'
 torch.save(model, filename)
