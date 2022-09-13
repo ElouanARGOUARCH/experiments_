@@ -18,10 +18,13 @@ target_samples = pre_process(temp, lbda)
 p = target_samples.shape[-1]
 
 C = 9
-K = 50
+K = 20
 structure = [[MAFLayer, [128,128,128]] for i in range(C)]
 structure.append([DIFDensityEstimatorLayer, K])
-initial_w = SoftmaxWeight(K,p, [128,128,128])
-model = MixedModelDensityEstimator(target_samples, structure)
-model.model[-1].w = initial_w
-model.train(1000,6000)
+for j in range(10):
+    initial_w = SoftmaxWeight(K,p, [128,128,128])
+    model = MixedModelDensityEstimator(target_samples, structure)
+    model.model[-1].w = initial_w
+    model.train(2000,1000)
+    filename = 'nf_dif_'+str(j)+'.sav'
+    torch.save(model, filename)
