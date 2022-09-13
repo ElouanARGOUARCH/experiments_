@@ -1,5 +1,6 @@
 import torch
 from models_nf import MAFLayer, MixedModelDensityEstimator, DIFDensityEstimatorLayer
+from models_dif import SoftmaxWeight
 
 import torchvision.datasets as datasets
 mnist_trainset = datasets.MNIST(root='./data', train=True, download=True, transform=None)
@@ -17,7 +18,10 @@ target_samples = pre_process(temp, lbda)
 p = target_samples.shape[-1]
 
 C = 9
+K = 50
 structure = [[MAFLayer, [128,128,128]] for i in range(C)]
-structure.append([DIFDensityEstimatorLayer, 10])
+structure.append([DIFDensityEstimatorLayer, K])
+initial_w = SoftmaxWeight(K,p, [128,128,128])
 model = MixedModelDensityEstimator(target_samples, structure)
+model.model[-1].w = initial_w
 model.train(1000,6000)
